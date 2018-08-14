@@ -2,5 +2,8 @@ package manipulador
 
 import "html/template"
 
-//Modelos armazena os modelos de pagina que serão executados pelos manipuladores
-var Modelos = template.Must(template.ParseFiles("/home/carlos/go/src/avancado/servidor_web/html/ola.html"))
+//ModeloOla armazena os modelos de pagina que serão executados pelos manipuladores
+var ModeloOla = template.Must(template.ParseFiles("/home/carlos/go/src/project-go/avancado/conexao_bd_sql/html/ola.html"))
+
+//ModeloLocal armazena os modelos de pagina Local
+var ModeloLocal = template.Must(template.ParseFiles("/home/carlos/go/src/project-go/avancado/conexao_bd_sql/html/local.html"))
