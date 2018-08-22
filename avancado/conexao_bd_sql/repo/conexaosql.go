@@ -13,8 +13,8 @@ import (
 //MyCnf procura um arquivo no computador e le
 func MyCnf() []string {
 	var host string
-	var port string
-	var dbname string
+	//var port string
+	//var dbname string
 	var user string
 	var password string
 	var array []string
@@ -26,10 +26,10 @@ func MyCnf() []string {
 
 	host = cfg.Section("client").Key("host").String()
 	array = append(array, host)
-	port = cfg.Section("client").Key("port").String()
-	array = append(array, port)
-	dbname = cfg.Section("client").Key("dbname").String()
-	array = append(array, dbname)
+	//port = cfg.Section("client").Key("port").String()
+	//array = append(array, port)
+	//dbname = cfg.Section("client").Key("dbname").String()
+	//array = append(array, dbname)
 	user = cfg.Section("client").Key("user").String()
 	array = append(array, user)
 	password = cfg.Section("client").Key("password").String()
@@ -48,11 +48,11 @@ func AbreConexaoComBdSQL() (err error) {
 
 	host := array[0]
 	//port := array[1]
-	dbname := array[2]
+	//dbname := array[2]
 	user := array[3]
 	password := array[4]
 
-	var connectionString = fmt.Sprintf("%s:%s@tcp(%s:3306)/%s?allowNativePasswords=true", user, password, host, dbname)
+	var connectionString = fmt.Sprintf("%s:%s@tcp(%s:3306)/%s?allowNativePasswords=true", user, password, host, user)
 
 	Db, err = sqlx.Open("mysql", connectionString)
 	if err != nil {
