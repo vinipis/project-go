@@ -13,7 +13,7 @@ import (
 //MyCnf procura um arquivo no computador e le
 func MyCnf() []string {
 	var host string
-	//var port string
+	var port string
 	//var dbname string
 	var user string
 	var password string
@@ -26,8 +26,8 @@ func MyCnf() []string {
 
 	host = cfg.Section("client").Key("host").String()
 	array = append(array, host)
-	//port = cfg.Section("client").Key("port").String()
-	//array = append(array, port)
+	port = cfg.Section("client").Key("port").String()
+	array = append(array, port)
 	//dbname = cfg.Section("client").Key("dbname").String()
 	//array = append(array, dbname)
 	user = cfg.Section("client").Key("user").String()
