@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"fundamentos/structs_avancado/model"
+	"project-go/fundamentos/erro/model"
 )
 
 var cache map[string]model.Imovel
