@@ -15,13 +15,13 @@ var Db *sqlx.DB
 func AbreConexaoComBdSQL() (err error) {
 	err = nil
 
-	Db, err = sqlx.Open("mysql", "root:GomariaDB@tcp(127.0.0.1)/carlos")
+	Db, err = sqlx.Open("mysql", "root:GomariaDB@tcp(127.0.0.1:3306)/carlos?parseTime=true")
 	if err != nil {
 		return
 	}
 	err = Db.Ping()
 	if err != nil {
-		fmt.Println("[conexaosql.go] Ping deu erro")
+		fmt.Println("[AbreConexaoComBdSQL] Ping deu erro")
 		return
 	}
 	return
