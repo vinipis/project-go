@@ -10,6 +10,6 @@ var SessaoMongo *mgo.Session
 //AbreSessaoComMongo faz a conexao com o Mongo
 func AbreSessaoComMongo() (err error) {
 	err = nil
-	SessaoMongo, err = mgo.Dial("mongodb://localhost:27017/cursodego")
+	SessaoMongo, err = mgo.Dial("mongodb://localhost:27017/carlos")
 	return
 }
