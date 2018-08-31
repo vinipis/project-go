@@ -27,14 +27,28 @@ func main() {
 		}
 	}
 
-	var vetorTamanhoCerto []int
-
 	for cont := 0; cont < contVetor; cont++ {
 		fmt.Println(armazenaDivisor[cont])
-		vetorTamanhoCerto[cont] = armazenaDivisor[cont]
 	}
 	fmt.Printf("Os divisores ocuparam um total de: %v espaços no vetor...", contVetor)
 
-	valorDaSoma, qtdimpar := mediaImpar.Media(vetorTamanhoCerto)
+	valorDaSoma, qtdimpar := Media(armazenaDivisor)
 
+	fmt.Printf("O valor da soma dos numero impares é: %v. E a quantidade de impares foi: %v ", valorDaSoma, qtdimpar)
+}
+
+//Media é um funçao para calcular os numeros inpares
+func Media(v [10]int) (valorDaSoma int, qtdimpar int) {
+
+	for cont := 0; cont < 10; {
+		if v[cont]%2 != 0 {
+			valorDaSoma = v[cont]
+			valorDaSoma = valorDaSoma + valorDaSoma
+			qtdimpar++
+			cont++
+		} else {
+			cont++
+		}
+	}
+	return
 }
