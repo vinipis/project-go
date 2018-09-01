@@ -33,7 +33,7 @@ func main() {
 		fmt.Println("A media foi: ", media)
 		return
 	}
-	//	}
+	
 }
 
 func calculaMedia(continuada int, semestral int) (media int) {
