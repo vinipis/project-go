@@ -16,17 +16,14 @@ func main() {
 	var cont int
 	var id string
 	var nome string
-	var montarJSON string
-	var users []uint8
-	var user map[string]string
 
 	for res.Next() {
 		res.Scan(&id, &nome)
-		user = map[string]string{id: nome}
-		users, _ = json.Marshal(user)
+		user := map[string]string{id: nome}
+		users, _ := json.Marshal(user)
 
 		for _, valueJSON := range users {
-			montarJSON = string(valueJSON)
+			montarJSON := string(valueJSON)
 			if cont == 0 && montarJSON != "}" {
 				fmt.Print(montarJSON)
 
