@@ -4,40 +4,25 @@ import (
 	"database/sql"
 	"encoding/json"
 	"fmt"
-	"os"
 
 	_ "github.com/go-sql-driver/mysql"
 )
 
-func checkError(err error) {
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Fatal error: %s\n", err.Error())
-		os.Exit(1)
-	}
-}
-
-//PrintSlice precisa ter comentario
-func PrintSlice(result []string) {
-	fmt.Print(result)
-}
-
 func main() {
-	db, err := sql.Open("mysql", "root:GomariaDB@tcp(127.0.0.1:3306)/carlos?charset=utf8")
-	checkError(err)
+	db, _ := sql.Open("mysql", "user:password@tcp(127.0.0.1:3306)/userbd?charset=utf8")
 
-	res, err := db.Query("SHOW GLOBAL STATUS")
-	checkError(err)
+	res, _ := db.Query("SHOW GLOBAL STATUS")
 
 	var id string
 	var nome string
+	var users []uint8
+	var user map[string]string
 
 	for res.Next() {
-
 		res.Scan(&id, &nome)
-		user := json.NewEncoder(os.Stdout)
-		users := map[string]string{id: nome}
-		user.Encode(users)
+		user = map[string]string{id: nome}
+		users, _ = json.Marshal(user)
+		fmt.Println(string(users))
 	}
-
 	db.Close()
 }
