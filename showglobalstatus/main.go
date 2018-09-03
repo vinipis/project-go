@@ -31,7 +31,11 @@ func main() {
 				fmt.Print(montarJSON)
 			}
 		}
-		fmt.Print(",")
+		if false != res.Next() {
+			fmt.Print(",")
+		} else {
+			fmt.Print("}")
+		}
 		cont++
 	}
 	db.Close()
