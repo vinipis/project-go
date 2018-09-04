@@ -13,9 +13,10 @@ func main() {
 
 	res, _ := db.Query("SHOW GLOBAL STATUS")
 
-	var cont int
-	var id string
-	var nome string
+	var (
+		cont     int
+		id, nome string
+	)
 
 	for res.Next() {
 		res.Scan(&id, &nome)
