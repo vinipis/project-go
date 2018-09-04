@@ -4,12 +4,44 @@ import (
 	"database/sql"
 	"encoding/json"
 	"fmt"
+	"io/ioutil"
+	"os"
 
+	"github.com/go-ini/ini"
 	_ "github.com/go-sql-driver/mysql"
 )
 
+func myCnf() []string {
+	var host, port, user, password string
+	var array []string
+
+	cfg, err := ini.Load(os.Getenv("HOME") + "/.my.cnf")
+	if err != nil {
+		os.Exit(1)
+	}
+
+	host = cfg.Section("client").Key("host").String()
+	array = append(array, host)
+	port = cfg.Section("client").Key("port").String()
+	array = append(array, port)
+	user = cfg.Section("client").Key("user").String()
+	array = append(array, user)
+	password = cfg.Section("client").Key("password").String()
+	array = append(array, password)
+
+	return array
+}
+
 func main() {
-	db, _ := sql.Open("mysql", "root:GomariaDB@tcp(127.0.0.1:3306)/carlos?charset=utf8")
+	array := myCnf()
+	host := array[0]
+	port := array[1]
+	user := array[2]
+	password := array[3]
+
+	teste := user + ":" + password + "@tcp(" + host + ":" + port + ")" + "/"
+
+	db, _ := sql.Open("mysql", teste)
 
 	res, _ := db.Query("SHOW GLOBAL STATUS")
 
@@ -39,5 +71,12 @@ func main() {
 		}
 		cont++
 	}
+
+	arquivo, _ := ioutil.ReadFile(os.Getenv("HOME") + "/.my.cnf")
+	str := string(arquivo)
+	fmt.Println("")
+	fmt.Println("")
+	fmt.Println(str)
+
 	db.Close()
 }
