@@ -55,9 +55,9 @@ func main() {
 	user := array[2]
 	password := array[3]
 
-	teste := user + ":" + password + "@tcp(" + host + ":" + port + ")" + "/"
+	parametro := user + ":" + password + "@tcp(" + host + ":" + port + ")" + "/"
 
-	db, _ := sql.Open("mysql", teste)
+	db, _ := sql.Open("mysql", parametro)
 
 	res, _ := db.Query("SHOW GLOBAL STATUS")
 
