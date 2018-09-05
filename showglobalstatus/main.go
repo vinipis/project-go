@@ -4,7 +4,6 @@ import (
 	"database/sql"
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
 	"os"
 
 	"github.com/go-ini/ini"
@@ -15,18 +14,35 @@ func myCnf() []string {
 	var host, port, user, password string
 	var array []string
 
-	cfg, err := ini.Load(os.Getenv("HOME") + "/.my.cnf")
-	if err != nil {
-		os.Exit(1)
-	}
+	cfg, _ := ini.Load(os.Getenv("HOME") + "/.my.cnf")
 
-	host = cfg.Section("client").Key("host").String()
+	host = cfg.Section("client").Key("host").Validate(func(in string) string {
+		if len(in) == 0 {
+			return "127.0.0.1"
+		}
+		return in
+	})
 	array = append(array, host)
-	port = cfg.Section("client").Key("port").String()
+	port = cfg.Section("client").Key("port").Validate(func(in string) string {
+		if len(in) == 0 {
+			return "3306"
+		}
+		return in
+	})
 	array = append(array, port)
-	user = cfg.Section("client").Key("user").String()
+	user = cfg.Section("client").Key("user").Validate(func(in string) string {
+		if len(in) == 0 {
+			return "root"
+		}
+		return in
+	})
 	array = append(array, user)
-	password = cfg.Section("client").Key("password").String()
+	password = cfg.Section("client").Key("password").Validate(func(in string) string {
+		if len(in) == 0 {
+			return "GomariaDB"
+		}
+		return in
+	})
 	array = append(array, password)
 
 	return array
@@ -71,12 +87,5 @@ func main() {
 		}
 		cont++
 	}
-
-	arquivo, _ := ioutil.ReadFile(os.Getenv("HOME") + "/.my.cnf")
-	str := string(arquivo)
-	fmt.Println("")
-	fmt.Println("")
-	fmt.Println(str)
-
 	db.Close()
 }
