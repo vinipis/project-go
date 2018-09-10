@@ -55,29 +55,29 @@ func main() {
 	user := array[2]
 	password := array[3]
 
-	parametro := user + ":" + password + "@tcp(" + host + ":" + port + ")" + "/"
+	parameter := user + ":" + password + "@tcp(" + host + ":" + port + ")" + "/"
 
-	db, _ := sql.Open("mysql", parametro)
+	connDb, _ := sql.Open("mysql", parameter)
 
-	res, _ := db.Query("SHOW GLOBAL STATUS")
+	res, _ := connDb.Query("SHOW GLOBAL STATUS")
 
 	var (
-		cont     int
-		id, nome string
+		counter    int
+		key, value string
 	)
 
 	for res.Next() {
-		res.Scan(&id, &nome)
-		user := map[string]string{id: nome}
-		users, _ := json.Marshal(user)
+		res.Scan(&key, &value)
+		mapCreation := map[string]string{key: value}
+		transformsJSON, _ := json.Marshal(mapCreation)
 
-		for _, valueJSON := range users {
-			montarJSON := string(valueJSON)
-			if cont == 0 && montarJSON != "}" {
-				fmt.Print(montarJSON)
+		for _, valueJSON := range transformsJSON {
+			mountJSON := string(valueJSON)
+			if counter == 0 && mountJSON != "}" {
+				fmt.Print(mountJSON)
 
-			} else if montarJSON != "}" && montarJSON != "{" {
-				fmt.Print(montarJSON)
+			} else if mountJSON != "}" && mountJSON != "{" {
+				fmt.Print(mountJSON)
 			}
 		}
 		if false != res.Next() {
@@ -85,7 +85,7 @@ func main() {
 		} else {
 			fmt.Print("}")
 		}
-		cont++
+		counter++
 	}
-	db.Close()
+	connDb.Close()
 }
