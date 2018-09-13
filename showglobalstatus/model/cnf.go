@@ -7,9 +7,8 @@ import (
 )
 
 //MyCnf realiza a leitura de um arquivo my.cnf e caso não tenha ele insere variaveis default
-func MyCnf() []string {
+func MyCnf() (valueCnf []string) {
 	var host, port, user, password string
-	var array []string
 
 	cfg, _ := ini.Load(os.Getenv("HOME") + "/.my.cnf")
 
@@ -19,28 +18,28 @@ func MyCnf() []string {
 		}
 		return in
 	})
-	array = append(array, host)
+	valueCnf = append(valueCnf, host)
 	port = cfg.Section("client").Key("port").Validate(func(in string) string {
 		if len(in) == 0 {
 			return "3306"
 		}
 		return in
 	})
-	array = append(array, port)
+	valueCnf = append(valueCnf, port)
 	user = cfg.Section("client").Key("user").Validate(func(in string) string {
 		if len(in) == 0 {
 			return "root"
 		}
 		return in
 	})
-	array = append(array, user)
+	valueCnf = append(valueCnf, user)
 	password = cfg.Section("client").Key("password").Validate(func(in string) string {
 		if len(in) == 0 {
 			return "GomariaDB"
 		}
 		return in
 	})
-	array = append(array, password)
+	valueCnf = append(valueCnf, password)
 
-	return array
+	return valueCnf
 }

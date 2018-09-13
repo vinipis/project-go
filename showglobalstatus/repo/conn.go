@@ -9,11 +9,11 @@ import (
 //OpenConn Realiza a abertura da conexão com o banco de dados
 func OpenConn() (connDb *sql.DB) {
 
-	array := model.MyCnf()
-	host := array[0]
-	port := array[1]
-	user := array[2]
-	password := array[3]
+	valueCnf := model.MyCnf()
+	host := valueCnf[0]
+	port := valueCnf[1]
+	user := valueCnf[2]
+	password := valueCnf[3]
 
 	parameter := user + ":" + password + "@tcp(" + host + ":" + port + ")" + "/"
 
