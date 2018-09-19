@@ -28,7 +28,7 @@ func MyCnf() (valueCnf []string) {
 	valueCnf = append(valueCnf, port)
 	user = cfg.Section("client").Key("user").Validate(func(in string) string {
 		if len(in) == 0 {
-			return "root"
+			return os.Getenv("USER")
 		}
 		return in
 	})
