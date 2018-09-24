@@ -24,10 +24,10 @@ func MyCnf() (valueCnf []string) {
 	})
 	valueCnf = append(valueCnf, host)
 	port = cfg.Section("client").Key("port").Validate(func(in string) string {
+		var portParameter string
+		flag.StringVar(&portParameter, "p", "3306", "specify portParameter to use.  defaults to 3306.")
+		flag.Parse()
 		if len(in) == 0 {
-			var portParameter string
-			flag.StringVar(&portParameter, "p", "3306", "specify portParameter to use.  defaults to 3306.")
-			flag.Parse()
 			return portParameter
 		}
 		return in
