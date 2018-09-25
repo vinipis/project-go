@@ -9,46 +9,45 @@ import (
 
 //MyCnf realiza a leitura de um arquivo my.cnf e caso não tenha ele insere variaveis default
 func MyCnf() (valueCnf []string) {
-	var host, port, user, password string
+	var host, port, user, password, Parameter string
 
 	cfg, _ := ini.Load(os.Getenv("HOME") + "/.my.cnf")
 
 	host = cfg.Section("client").Key("host").Validate(func(in string) string {
-		if len(in) == 0 {
-			var hostParameter string
-			flag.StringVar(&hostParameter, "h", "127.0.0.1", "specify hostParameter to use.  defaults to 127.0.0.1.")
-			go flag.Parse()
-			return hostParameter
+		flag.StringVar(&Parameter, "h", "127.0.0.1", "specify Parameter to use.  defaults to 127.0.0.1.")
+		flag.Parse()
+		if in == "" || flag.NFlag() != 0 {
+			return Parameter
 		}
 		return in
 	})
 	valueCnf = append(valueCnf, host)
+
 	port = cfg.Section("client").Key("port").Validate(func(in string) string {
-		var portParameter string
-		flag.StringVar(&portParameter, "p", "3306", "specify portParameter to use.  defaults to 3306.")
+		flag.StringVar(&Parameter, "p", "3306", "specify Parameter to use.  defaults to 3306.")
 		flag.Parse()
-		if len(in) == 0 {
-			return portParameter
+		if in == "" || flag.NFlag() != 0 {
+			return Parameter
 		}
 		return in
 	})
 	valueCnf = append(valueCnf, port)
+
 	user = cfg.Section("client").Key("user").Validate(func(in string) string {
-		if len(in) == 0 {
-			var userParameter string
-			flag.StringVar(&userParameter, "u", (os.Getenv("USER")), "specify userParameter to use.  defaults to root.")
-			flag.Parse()
-			return userParameter
+		flag.StringVar(&Parameter, "u", (os.Getenv("USER")), "specify Parameter to use.  defaults to root.")
+		flag.Parse()
+		if in == "" || flag.NFlag() != 0 {
+			return Parameter
 		}
 		return in
 	})
 	valueCnf = append(valueCnf, user)
+
 	password = cfg.Section("client").Key("password").Validate(func(in string) string {
-		if len(in) == 0 {
-			var passParameter string
-			flag.StringVar(&passParameter, "o", "", "specify port to use.  defaults to .")
-			flag.Parse()
-			return passParameter
+		flag.StringVar(&Parameter, "o", "", "specify port to use.  defaults to password.")
+		flag.Parse()
+		if in == "" || flag.NFlag() != 0 {
+			return Parameter
 		}
 		return in
 	})
