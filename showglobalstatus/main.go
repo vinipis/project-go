@@ -4,10 +4,8 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/caarlos0/env"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/vinipis/project-go/showglobalstatus/repo"
-	"github.com/vinipis/project-go/showglobalstatus/structs"
 )
 
 func main() {
@@ -40,16 +38,5 @@ func main() {
 		}
 		counter++
 	}
-	fmt.Println()
-	fmt.Println()
-	fmt.Println()
-
-	cfg := structs.Parameters{}
-	err := env.Parse(&cfg)
-	if err != nil {
-		fmt.Printf("%+v\n", err)
-	}
-	fmt.Printf("%+v\n", cfg)
-
 	openConn.Close()
 }
