@@ -3,10 +3,21 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"time"
 
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/vinipis/project-go/showglobalstatus/repo"
 )
+
+func init() {
+
+	fmt.Println("Default value passed by the command line will not be used if you have a .my.cnf")
+	fmt.Println()
+	fmt.Println("Using ./testeshowglobal:")
+	fmt.Println("-help know more")
+	fmt.Println()
+	time.Sleep(3000 * time.Millisecond)
+}
 
 func main() {
 	openConn := repo.OpenConn()
