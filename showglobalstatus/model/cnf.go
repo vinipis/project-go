@@ -10,14 +10,10 @@ import (
 //MyCnf realiza a leitura de um arquivo my.cnf e caso não tenha ele insere variaveis default
 func MyCnf() (valueCnf []string) {
 	valueParameters, validaflag := structs.ParametersTerminal()
-	host := valueParameters[0]
-	hostflag := validaflag[0]
-	port := valueParameters[1]
-	portflag := validaflag[1]
-	user := valueParameters[2]
-	userflag := validaflag[2]
-	password := valueParameters[3]
-	passflag := validaflag[3]
+	host, hostflag := valueParameters[0], validaflag[0]
+	port, portflag := valueParameters[1], validaflag[1]
+	user, userflag := valueParameters[2], validaflag[2]
+	password, passflag := valueParameters[3], validaflag[3]
 
 	cfg, _ := ini.Load(os.Getenv("HOME") + "/.my.cnf")
 
