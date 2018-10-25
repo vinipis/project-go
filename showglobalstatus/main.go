@@ -26,6 +26,7 @@ func main() {
 			mountJSON := string(valueJSON)
 			if counter == 0 && mountJSON != "}" {
 				fmt.Print(mountJSON)
+				counter++
 
 			} else if mountJSON != "}" && mountJSON != "{" {
 				fmt.Print(mountJSON)
@@ -36,7 +37,6 @@ func main() {
 		} else {
 			fmt.Print("}")
 		}
-		counter++
 	}
 	openConn.Close()
 }

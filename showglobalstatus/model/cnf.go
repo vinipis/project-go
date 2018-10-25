@@ -15,38 +15,46 @@ func MyCnf() (valueCnf []string) {
 	user, userflag := valueParameters[2], validaflag[2]
 	password, passflag := valueParameters[3], validaflag[3]
 
-	cfg, _ := ini.Load(os.Getenv("HOME") + "/.my.cnf")
+	cfg, err := ini.Load(os.Getenv("HOME") + "/.my.cnf")
 
-	host = cfg.Section("client").Key("host").Validate(func(in string) string {
-		if in == "" || hostflag == 1 {
-			return host
-		}
-		return in
-	})
+	if err == nil {
+		host = cfg.Section("client").Key("host").Validate(func(in string) string {
+			if in == "" || hostflag == 1 {
+				return host
+			}
+			return in
+		})
+	}
 	valueCnf = append(valueCnf, host)
 
-	port = cfg.Section("client").Key("port").Validate(func(in string) string {
-		if in == "" || portflag == 1 {
-			return port
-		}
-		return in
-	})
+	if err == nil {
+		port = cfg.Section("client").Key("port").Validate(func(in string) string {
+			if in == "" || portflag == 1 {
+				return port
+			}
+			return in
+		})
+	}
 	valueCnf = append(valueCnf, port)
 
-	user = cfg.Section("client").Key("user").Validate(func(in string) string {
-		if in == "" || userflag == 1 {
-			return user
-		}
-		return in
-	})
+	if err == nil {
+		user = cfg.Section("client").Key("user").Validate(func(in string) string {
+			if in == "" || userflag == 1 {
+				return user
+			}
+			return in
+		})
+	}
 	valueCnf = append(valueCnf, user)
 
-	password = cfg.Section("client").Key("password").Validate(func(in string) string {
-		if in == "" || passflag == 1 {
-			return password
-		}
-		return in
-	})
+	if err == nil {
+		password = cfg.Section("client").Key("password").Validate(func(in string) string {
+			if in == "" || passflag == 1 {
+				return password
+			}
+			return in
+		})
+	}
 	valueCnf = append(valueCnf, password)
 
 	return valueCnf
